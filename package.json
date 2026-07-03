@@ -1,0 +1,17 @@
+{
+  "name": "synvix-site",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "site",
+    "site-api"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,site -c yellow,cyan \"npm run dev -w site-api\" \"npm run dev -w site\"",
+    "build": "npm run build -w site-api && npm run build -w site",
+    "start": "npm run start -w site-api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
