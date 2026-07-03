@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import CursorGlow from "./CursorGlow";
+import { Analytics } from "@vercel/analytics/react";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -44,6 +45,7 @@ export function Layout() {
       <footer className="py-10 text-center text-xs text-neutral-600">
         © 2026 Synvix. All rights reserved.
       </footer>
+      <Analytics />
     </div>
   );
 }
