@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { createTicket } from "./_lib/kv";
+import { createTicket } from "./_lib/db";
 
 function isSpam(text: string): boolean {
   return /https?:\/\/[^\s]{20,}/gi.test(text) || /viagra|casino|crypto airdrop/i.test(text);

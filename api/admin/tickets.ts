@@ -1,4 +1,4 @@
-import { getAllTickets } from "../_lib/kv";
+import { getAllTickets } from "../_lib/db";
 import { authMiddleware } from "../_lib/middleware";
 
 export default async function (req: any, res: any) {

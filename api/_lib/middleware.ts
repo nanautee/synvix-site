@@ -1,4 +1,4 @@
-import { validateSession } from "./kv";
+import { validateSession } from "./db";
 
 export async function authMiddleware(req: any, res: any): Promise<boolean> {
   const header = req.headers.authorization;
