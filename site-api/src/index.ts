@@ -1,4 +1,6 @@
 import "dotenv/config";
+import path from "path";
+import fs from "fs";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -16,7 +18,7 @@ app.use(helmet({
       scriptSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:"],
-      connectSrc: ["'self'", process.env.CORS_ORIGIN || "*"],
+      connectSrc: ["'self'"],
       fontSrc: ["'self'"],
       objectSrc: ["'none'"],
       frameAncestors: ["'none'"],
@@ -132,6 +134,18 @@ if (!process.env.ADMIN_PASSWORD) {
   process.exit(1);
 }
 
+// Serve built frontend in production
+const staticDir = path.resolve(__dirname, "../../site/dist");
+if (fs.existsSync(path.join(staticDir, "index.html"))) {
+  app.use(express.static(staticDir));
+  app.get("*", (_req, res) => {
+    res.sendFile(path.join(staticDir, "index.html"));
+  });
+  console.log(`Serving frontend from ${staticDir}`);
+} else {
+  console.log(`No frontend build found at ${staticDir} — API only`);
+}
+
 app.listen(PORT, () => {
-  console.log(`Synvix site API on http://localhost:${PORT}`);
+  console.log(`Synvix site on http://localhost:${PORT}`);
 });

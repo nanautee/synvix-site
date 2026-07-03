@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-
-const API = import.meta.env.VITE_API_URL || "http://localhost:3002";
+import { API } from "../lib/api";
 
 export function Support() {
   const [email, setEmail] = useState("");

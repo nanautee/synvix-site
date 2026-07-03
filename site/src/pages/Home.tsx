@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Logo } from "../components/Logo";
 import { AppMockup } from "../components/AppMockup";
 import HowItWorks from "../components/HowItWorks";
+import { API } from "../lib/api";
 
 export function Home() {
   const [showComingSoon, setShowComingSoon] = useState(false);
@@ -79,7 +80,7 @@ export function Home() {
                 const email = (e.target as HTMLFormElement).email.value;
                 if (!email) return;
                 try {
-                  await fetch("https://api.synvix.com/api/tickets", {
+                  await fetch(`${API}/api/tickets`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, subject: "Notify me about Synvix release", message: email }),
