@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "site/dist",
+  "devCommand": "npm run dev -w site",
+  "rewrites": [
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}
