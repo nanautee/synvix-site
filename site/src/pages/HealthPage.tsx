@@ -124,6 +124,9 @@ export function HealthPage() {
         ))}
       </div>
       <p className="text-xs text-neutral-700 mt-8">All systems operational.</p>
+      <button onClick={() => setShowAdmin((s) => !s)} className="mt-4 text-xs text-neutral-800 hover:text-neutral-500 transition-colors select-none">
+        ·
+      </button>
 
       {showAdmin && (
         <div className="mt-8 p-4 rounded-xl border border-neutral-700 bg-neutral-900 text-left">

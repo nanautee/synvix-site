@@ -15,7 +15,7 @@ export function Home() {
         <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20 py-20">
           <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
             <Logo size={120} />
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mt-8 leading-[1.15] py-4 bg-gradient-to-b from-white to-neutral-400 bg-clip-text text-transparent" style={{ fontFamily: "Borney, sans-serif", letterSpacing: "0.05em" }}>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mt-8 leading-[1.15] py-4 text-white" style={{ fontFamily: "Borney, sans-serif", letterSpacing: "0.05em" }}>
               Synvix
             </h1>
             <p className="text-neutral-300 text-xl md:text-2xl mt-6 max-w-lg leading-relaxed">
