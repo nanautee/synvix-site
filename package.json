@@ -7,8 +7,7 @@
   ],
   "scripts": {
     "dev": "npm run dev -w site",
-    "build": "npm run build -w site",
-    "vercel-build": "npm run build"
+    "build": "npm run build -w site"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.0",
