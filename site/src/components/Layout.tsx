@@ -43,7 +43,13 @@ export function Layout() {
         <Outlet />
       </main>
       <footer className="py-10 text-center text-xs text-neutral-600">
-        © 2026 Synvix. All rights reserved.
+        <div className="flex flex-wrap justify-center gap-4 mb-4">
+          <NavLink to="/privacy" className="hover:text-neutral-400 transition-colors">Privacy Policy</NavLink>
+          <NavLink to="/terms" className="hover:text-neutral-400 transition-colors">Terms of Service</NavLink>
+          <NavLink to="/disclaimer" className="hover:text-neutral-400 transition-colors">Disclaimer</NavLink>
+          <NavLink to="/contact" className="hover:text-neutral-400 transition-colors">Contact</NavLink>
+        </div>
+        <p>© 2026 Synvix. All rights reserved.</p>
       </footer>
       <Analytics />
     </div>
