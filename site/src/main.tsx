@@ -8,6 +8,10 @@ import { Support } from "./pages/Support";
 import { About } from "./pages/About";
 import { HealthPage } from "./pages/HealthPage";
 import { Store } from "./pages/Store";
+import { Privacy } from "./pages/Privacy";
+import { Terms } from "./pages/Terms";
+import { Disclaimer } from "./pages/Disclaimer";
+import { Contact } from "./pages/Contact";
 import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -20,6 +24,10 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/coming-soon" element={<Store />} />
           <Route path="/support" element={<Support />} />
           <Route path="/about" element={<About />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/disclaimer" element={<Disclaimer />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/support/health" element={<HealthPage />} />
         </Route>
       </Routes>

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /support/health
+Disallow: /api/
+
+Sitemap: https://synvix.vercel.app/sitemap.xml
