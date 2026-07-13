@@ -4,8 +4,39 @@ import { AppMockup } from "../components/AppMockup";
 import HowItWorks from "../components/HowItWorks";
 import { API } from "../lib/api";
 
+const DOWNLOAD_URLS = {
+  windows: "https://github.com/nanautee/Synvix/releases/download/v1.0.1/Synvix-Setup-1.0.0.exe",
+  macIntel: "https://github.com/nanautee/Synvix/releases/download/v1.0.1/Synvix-1.0.0-x64.dmg",
+  macSilicon: "https://github.com/nanautee/Synvix/releases/download/v1.0.1/Synvix-1.0.0-arm64.dmg",
+  linux: "https://github.com/nanautee/Synvix/releases/download/v1.0.1/Synvix-1.0.0.AppImage",
+};
+
+function detectOS(): "windows" | "mac" | "linux" {
+  const ua = navigator.userAgent.toLowerCase();
+  if (ua.includes("win")) return "windows";
+  if (ua.includes("mac")) return "mac";
+  return "linux";
+}
+
+function getDownloadUrl(): string {
+  const os = detectOS();
+  if (os === "mac") {
+    const isAppleSilicon = navigator.userAgent.includes("Apple Silicon") || navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+    return isAppleSilicon ? DOWNLOAD_URLS.macSilicon : DOWNLOAD_URLS.macIntel;
+  }
+  if (os === "linux") return DOWNLOAD_URLS.linux;
+  return DOWNLOAD_URLS.windows;
+}
+
+function getOSLabel(): string {
+  const os = detectOS();
+  if (os === "mac") return "Download for macOS";
+  if (os === "linux") return "Download for Linux";
+  return "Download for Windows";
+}
+
 export function Home() {
-  const [showComingSoon, setShowComingSoon] = useState(false);
+  const [showAllPlatforms, setShowAllPlatforms] = useState(false);
 
   return (
     <>
@@ -25,13 +56,20 @@ export function Home() {
               <br />
               Your keys, your device.
             </p>
-            <button
-              onClick={() => setShowComingSoon(true)}
-              className="mt-10 px-10 py-4 rounded-xl bg-white text-black text-lg font-medium hover:bg-neutral-200 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-white/10"
-            >
-              Download for Windows
-            </button>
-            <p className="text-sm text-neutral-600 mt-4">Windows 10+ · macOS · Linux</p>
+            <div className="mt-10 flex flex-col items-center lg:items-start gap-3">
+              <a
+                href={getDownloadUrl()}
+                className="px-10 py-4 rounded-xl bg-white text-black text-lg font-medium hover:bg-neutral-200 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-white/10"
+              >
+                {getOSLabel()}
+              </a>
+              <button
+                onClick={() => setShowAllPlatforms(true)}
+                className="text-sm text-neutral-500 hover:text-neutral-300 transition-colors"
+              >
+                All platforms
+              </button>
+            </div>
           </div>
 
           <div className="shrink-0">
@@ -66,46 +104,27 @@ export function Home() {
         </div>
       </section>
 
-      {showComingSoon && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setShowComingSoon(false)}>
+      {showAllPlatforms && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setShowAllPlatforms(false)}>
           <div className="bg-neutral-900 border border-neutral-700 rounded-2xl p-8 max-w-sm mx-4 text-center" onClick={(e) => e.stopPropagation()}>
             <Logo size={48} />
-            <h2 className="text-xl font-bold text-white mt-4 mb-2">Coming Soon</h2>
-            <p className="text-neutral-400 text-sm">
-              The first public release is being polished. Leave your email and we'll let you know when it's ready.
-            </p>
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const email = (e.target as HTMLFormElement).email.value;
-                if (!email) return;
-                try {
-                  await fetch(`${API}/api/tickets`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, subject: "Notify me about Synvix release", message: email }),
-                  });
-                } catch {}
-                setShowComingSoon(false);
-              }}
-              className="mt-6 flex gap-2"
-            >
-              <input
-                name="email"
-                type="email"
-                required
-                placeholder="your@email.com"
-                className="flex-1 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-neutral-500"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 rounded-lg bg-white text-black text-sm font-medium hover:bg-neutral-200"
-              >
-                Notify
-              </button>
-            </form>
+            <h2 className="text-xl font-bold text-white mt-4 mb-4">Download Synvix</h2>
+            <div className="space-y-2">
+              <a href={DOWNLOAD_URLS.windows} className="block w-full px-4 py-3 rounded-lg bg-neutral-800 border border-neutral-700 text-white text-sm font-medium hover:bg-neutral-700 transition-colors">
+                Windows (.exe)
+              </a>
+              <a href={DOWNLOAD_URLS.macSilicon} className="block w-full px-4 py-3 rounded-lg bg-neutral-800 border border-neutral-700 text-white text-sm font-medium hover:bg-neutral-700 transition-colors">
+                macOS — Apple Silicon (.dmg)
+              </a>
+              <a href={DOWNLOAD_URLS.macIntel} className="block w-full px-4 py-3 rounded-lg bg-neutral-800 border border-neutral-700 text-white text-sm font-medium hover:bg-neutral-700 transition-colors">
+                macOS — Intel (.dmg)
+              </a>
+              <a href={DOWNLOAD_URLS.linux} className="block w-full px-4 py-3 rounded-lg bg-neutral-800 border border-neutral-700 text-white text-sm font-medium hover:bg-neutral-700 transition-colors">
+                Linux (.AppImage)
+              </a>
+            </div>
             <button
-              onClick={() => setShowComingSoon(false)}
+              onClick={() => setShowAllPlatforms(false)}
               className="mt-4 text-xs text-neutral-500 hover:text-white"
             >
               Close
