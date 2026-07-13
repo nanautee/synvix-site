@@ -4,6 +4,13 @@ import { AppMockup } from "../components/AppMockup";
 import HowItWorks from "../components/HowItWorks";
 import { API } from "../lib/api";
 
+const WALLETS = [
+  { network: "ETH / BSC", coin: "USDT", address: "0x590DE465Ee865030A12fbBd90e9f81a925921D38" },
+  { network: "Solana", coin: "USDT / USDC", address: "HNb3fYzS3a2UKxcDr9XEfW7h1CqWCsRD41g8TD2VjAzg" },
+  { network: "TRON", coin: "USDT", address: "TCXZyzvxhsUKkUQ5g8TfJAjcv9cp7wDw1S" },
+  { network: "TON", coin: "USDT", address: "UQAw6ZEtlMrR3ShgUV7X6fqZZl-zwIi7lgjbHa9iOFI_gflf" },
+];
+
 const DOWNLOAD_URLS = {
   windows: "https://github.com/nanautee/Synvix/releases/download/v1.0.1/Synvix-Setup-1.0.0.exe",
   macIntel: "https://github.com/nanautee/Synvix/releases/download/v1.0.1/Synvix-1.0.0-x64.dmg",
@@ -37,6 +44,13 @@ function getOSLabel(): string {
 
 export function Home() {
   const [showAllPlatforms, setShowAllPlatforms] = useState(false);
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+
+  const handleCopy = async (address: string, idx: number) => {
+    await navigator.clipboard.writeText(address);
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 2000);
+  };
 
   return (
     <>
@@ -99,6 +113,40 @@ export function Home() {
             <div key={f.t} className="p-5 rounded-xl border border-neutral-800 bg-neutral-900/50 hover:border-neutral-700 transition-colors">
               <h3 className="font-medium text-white mb-2">{f.t}</h3>
               <p className="text-sm text-neutral-500 leading-relaxed">{f.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="donate" className="max-w-4xl mx-auto px-6 py-24">
+        <div className="text-center mb-12">
+          <span className="text-indigo-400 text-sm tracking-[0.2em] uppercase font-medium">Support</span>
+          <h2 className="text-4xl font-bold mt-4 bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">
+            Support the project
+          </h2>
+          <p className="text-neutral-500 text-sm mt-4">
+            If Synvix helped you land a job, consider buying us a coffee.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          {WALLETS.map((w, i) => (
+            <div
+              key={i}
+              className="p-4 rounded-xl border border-neutral-800 bg-neutral-900/50 hover:border-neutral-700 transition-colors"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs text-neutral-500 font-medium uppercase tracking-wider">{w.network}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-neutral-800 text-neutral-400">{w.coin}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <code className="flex-1 text-xs text-neutral-400 font-mono truncate">{w.address}</code>
+                <button
+                  onClick={() => handleCopy(w.address, i)}
+                  className="shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-300 hover:bg-neutral-700 hover:text-white transition-all"
+                >
+                  {copiedIdx === i ? "Copied" : "Copy"}
+                </button>
+              </div>
             </div>
           ))}
         </div>

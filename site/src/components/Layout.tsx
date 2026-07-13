@@ -48,6 +48,7 @@ export function Layout() {
           <NavLink to="/terms" className="hover:text-neutral-400 transition-colors">Terms of Service</NavLink>
           <NavLink to="/disclaimer" className="hover:text-neutral-400 transition-colors">Disclaimer</NavLink>
           <NavLink to="/contact" className="hover:text-neutral-400 transition-colors">Contact</NavLink>
+          <a href="/#donate" className="hover:text-neutral-400 transition-colors">Donate</a>
         </div>
         <p>© 2026 Synvix. All rights reserved.</p>
       </footer>
