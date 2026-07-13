@@ -128,25 +128,23 @@ export function Home() {
             If Synvix helped you land a job, consider buying us a coffee.
           </p>
         </div>
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {WALLETS.map((w, i) => (
             <div
               key={i}
               className="p-4 rounded-xl border border-neutral-800 bg-neutral-900/50 hover:border-neutral-700 transition-colors"
             >
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-3">
                 <span className="text-xs text-neutral-500 font-medium uppercase tracking-wider">{w.network}</span>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-neutral-800 text-neutral-400">{w.coin}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <code className="flex-1 text-xs text-neutral-400 font-mono truncate">{w.address}</code>
-                <button
-                  onClick={() => handleCopy(w.address, i)}
-                  className="shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-300 hover:bg-neutral-700 hover:text-white transition-all"
-                >
-                  {copiedIdx === i ? "Copied" : "Copy"}
-                </button>
-              </div>
+              <code className="block text-xs text-neutral-400 font-mono break-all leading-relaxed mb-3">{w.address}</code>
+              <button
+                onClick={() => handleCopy(w.address, i)}
+                className="w-full sm:w-auto px-3 py-1.5 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-300 hover:bg-neutral-700 hover:text-white transition-all"
+              >
+                {copiedIdx === i ? "Copied" : "Copy address"}
+              </button>
             </div>
           ))}
         </div>
